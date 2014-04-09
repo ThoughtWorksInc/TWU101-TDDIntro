@@ -11,8 +11,14 @@ import static org.junit.Assert.assertThat;
 public class StringJoinerTests {
     @Test
     public void shouldJoinIntoAnEmptyStringWhenListIsEmpty(){
+        // Arrange
         List<String> strings = new ArrayList<String>();
-        String result = new StringJoiner().join(strings);
+        final StringJoiner joiner = new StringJoiner();
+
+        // Action
+        String result = joiner.join(strings);
+
+        // Assert
         assertThat(result, is(""));
     }
 }
