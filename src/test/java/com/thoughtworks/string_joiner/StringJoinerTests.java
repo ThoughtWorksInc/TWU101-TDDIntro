@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 public class StringJoinerTests {
     @Test
-    public void shouldFooWhenBar(){
+    public void shouldJoinIntoAnEmptyStringWhenListIsEmpty(){
         List<String> strings = new ArrayList<String>();
         String result = new StringJoiner().join(strings);
         assertThat(result, is(""));
