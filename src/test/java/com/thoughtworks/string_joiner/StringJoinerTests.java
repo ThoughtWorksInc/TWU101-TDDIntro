@@ -18,7 +18,7 @@ public class StringJoinerTests {
     @Before
     public void setUp() throws Exception {
         strings = new ArrayList<String>();
-        joiner = new StringJoiner();
+        joiner = new StringJoiner("SomeDelimiter");
     }
 
     @Test
@@ -38,5 +38,13 @@ public class StringJoinerTests {
         strings.add("A");
         strings.add("B");
         assertThat(joiner.join(strings), both(containsString("A")).and(containsString("B")));
+    }
+
+    @Test
+    public void shouldPutDelimiterBetweenStrings(){
+        StringJoiner joinerWithDelimiter = new StringJoiner(",");
+        strings.add("A");
+        strings.add("B");
+        assertThat(joinerWithDelimiter.join(strings), is("A,B"));
     }
 }
