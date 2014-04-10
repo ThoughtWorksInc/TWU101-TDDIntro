@@ -21,4 +21,16 @@ public class StringJoinerTests {
         // Assert
         assertThat(result, is(""));
     }
+
+    @Test
+    public void shouldJoinIntoTheStringWhenListIsOneString(){
+        List<String> strings = new ArrayList<String>();
+        String aString = "A String";
+        strings.add(aString);
+        final StringJoiner joiner = new StringJoiner();
+
+        String result = joiner.join(strings);
+
+        assertThat(result, is(aString));
+    }
 }

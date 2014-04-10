@@ -4,6 +4,6 @@ import java.util.List;
 
 public class StringJoiner {
     public String join(List<String> strings) {
-        return null;
+        return "";
     }
 }
