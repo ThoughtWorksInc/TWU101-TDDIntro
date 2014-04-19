@@ -99,7 +99,7 @@ method that returns the plural version of a word. In English, the way we plurali
 ‘s’ to the end of the word. That sounds like a great first test case.
 
 Once you know what behavior you want to verify you can name your test. A great format for test names is,
-`should&ltexpected behavior&gtWhen&ltsituation that behavior depends on&gt`. In our pluralizing example, the expected
+`should<expected behavior>When<situation that behavior depends on>`. In our pluralizing example, the expected
 behavior is ‘add an s’ and the situation is ‘normal word’. That means that we could name out test
 `shouldAddSWhenWordIsNormal`. Since it’s not necessarily clear what it means for a word to be ‘normal’, we could also
 name the test `shouldAddS` or `shouldAddSToWord`.
@@ -136,7 +136,7 @@ public class PluralizerTests {
 
 We call the class that we are testing the *class under test*. In the example above, the class under test is
 **`Pluralizer`**. All of the unit tests for the *class under test* will live inside a test class named:
-**`&lt&ltclass under test&gtTests.java`**.
+**`<<class under test>Tests.java`**.
 
 ### Anatomy of a Unit Test
 
@@ -342,7 +342,7 @@ same as the first one. The test fails as expect and this is a simple way to make
 ``` java
 public class StringJoiner {
     public String join(List<String> strings) {
-        if (strings.size() &gt 0){
+        if (strings.size() > 0){
             return strings.get(0);
         }
         return "";
@@ -473,7 +473,7 @@ public class StringJoiner {
 
     public String join(List<String> strings) {
         String result = "";
-        if (strings.size() &gt 0){
+        if (strings.size() > 0){
             List<String> allExceptFirstString = 
                 new ArrayList<String>(strings);
             result += allExceptFirstString.remove(0);
@@ -537,26 +537,26 @@ refactor it into code that is easier to read, extend, and test.
 
 	give AC that correspond to specific tests
 
-&lttable&gt
-  &lttr&gt
-    &lttd&gtGiven&lt/td&gt
-    &lttd&gtWhen&lt/td&gt
-    &lttd&gtThen&lt/td&gt
-  &lt/tr&gt
-  &lttr&gt
-    &lttd&gtI have $100 in my account&lt/td&gt
-    &lttd&gtI deposit $50&lt/td&gt
-    &lttd&gtI see that my account contains $150&lt/td&gt
-  &lt/tr&gt
-  &lttr&gt
-    &lttd&gtI have $100 in my account&lt/td&gt
-    &lttd&gtI withdraw $50&lt/td&gt
-    &lttd&gtI see that my account contains $50&lt/td&gt
-  &lt/tr&gt
-  &lttr&gt
-    &lttd&gtI have $50 in my account&lt/td&gt
-    &lttd&gtI withdraw $100&lt/td&gt
-    &lttd&gtI see that my withdrawal was unsuccessful
-And I see that my account contains $50&lt/td&gt
-  &lt/tr&gt
-&lt/table&gt
+<table>
+  <tr>
+    <td>Given</td>
+    <td>When</td>
+    <td>Then</td>
+  </tr>
+  <tr>
+    <td>I have $100 in my account</td>
+    <td>I deposit $50</td>
+    <td>I see that my account contains $150</td>
+  </tr>
+  <tr>
+    <td>I have $100 in my account</td>
+    <td>I withdraw $50</td>
+    <td>I see that my account contains $50</td>
+  </tr>
+  <tr>
+    <td>I have $50 in my account</td>
+    <td>I withdraw $100</td>
+    <td>I see that my withdrawal was unsuccessful
+And I see that my account contains $50</td>
+  </tr>
+</table>
