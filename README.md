@@ -26,7 +26,7 @@ The basics steps for this process look like this:
 
 3. Clean up any messes we created
 
-![alt text](https://github.com/BillSchofield/TDDIntro/blob/master/src/common/images/TDDCycle.png "")
+![image](https://github.com/BillSchofield/TDDIntro/blob/master/src/common/images/TDDCycle.png?raw=true)
 
 ### Add a test
 
