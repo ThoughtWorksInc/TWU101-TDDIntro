@@ -136,7 +136,7 @@ public class PluralizerTests {
 
 We call the class that we are testing the *class under test*. In the example above, the class under test is
 **`Pluralizer`**. All of the unit tests for the *class under test* will live inside a test class named:
-**`<<class under test>Tests.java`**.
+**`<class under test>Tests.java`**.
 
 ### Anatomy of a Unit Test
 
@@ -198,7 +198,7 @@ public class StringJoinerTests {
 }
 ```
 
-2 &amp 3) Next, create an instance of the class you are testing and call the method. You should type out the name of the
+2 & 3) Next, create an instance of the class you are testing and call the method. You should type out the name of the
 class and method even if they don’t exist yet. In the example below, assume that the class **`StringJoiner`** doesn’t
 exist yet.
 
@@ -211,9 +211,13 @@ public class StringJoinerTests {
 }
 ```
 
-Because **`StringJoiner`** doesn’t exist yet, our IDE highlights it in red. In IntelliJ we can click on the class name, 
-press Alt-Enter and choose the option **`Create Class ‘StringJoiner’`**. This will automatically create the class for 
-you. After the class is created our test will look like this...
+Right now the class **`StringJoiner`** doesn't exist. This means we need to create it. You can create it manually or
+use your IDE to create it for you.
+
+> IntelliJ will highlight **`StringJoiner`** in red. We can click on the class name, press Alt-Enter and choose the
+> option **`Create Class ‘StringJoiner’`**. This will automatically create the class for you.
+
+After the class is created our test will look like this...
 
 ``` java
 public class StringJoinerTests {
@@ -224,8 +228,12 @@ public class StringJoinerTests {
 }
 ```
 
-The write method is red because it’s not implemented yet. Hit Alt-Enter and choose **`Create Method ’join’`**. Now we’re 
-calling the method we want to test. Here are some useful questions we can ask:
+Now the **`join`** method doesn't exist. Create it yourself of use your IDE to create it for you.
+
+> In IntelliJ **`join`** will be red because it’s not implemented. Click on the method name, hit Alt-Enter, and choose
+> **`Create Method ’join’`**.
+
+Now we’re calling the method we want to test. Here are some useful questions we can ask:
 
 * What is the smallest piece of new behavior that we can add? 
 
@@ -377,7 +385,7 @@ public class StringJoinerTests {
 }
 ```
 
-The blue colored lines are exactly the same in both tests. Let’s fix this while our tests are passing so we can have 
+The **`new ArrayList<String>()`** and **`new StringJoiner()`** lines are exactly the same in both tests. Let’s fix this while our tests are passing so we can have
 confidence that we didn’t break anything. We can move change these local variables into instance variables which we 
 initialize in setup method like this:
 
@@ -527,36 +535,40 @@ public class StringJoiner {
 As a result of our disciplined practice of TDD, we have evidence that our code is correct and we were able to safely
 refactor it into code that is easier to read, extend, and test.
 
-## Factorial Exercise - make 1 test pass at a time 
+## Factorial Exercise
 
-	link
+Open the class **`com.thoughtworks.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
+changes to the class **`Factorial`** so that one more test passes than the last time you made a change. Essentially,
+you're doing the *Make the failing test pass* step of TDD. This should help you get used to the rhythm of TDD before
+you have to write your own tests. Here's the cycle you should go through once for each test.
 
-	instructions
+1. Run all of the tests by clicking anywhere inside the test class between the test methods and then hit
+Control-Shift-F10.
+2. Look at the assert line of the test you are trying to make pass (do them in order) and change the **`compute`**
+method so that the assert will pass.
+3. Run all of the tests. The only new test that should pass is the one you are currently trying to make pass. If more
+than one new test passes, you are adding too much functionality. Revert back to the last time you made a new test pass
+and try again. You should also try again if one of the previously passing tests now fails.
+4. Now that you have one more test passing, you should commit you change so you can revert back to a good state later if
+you need to.
 
 ## Write your own tests
 
-	give AC that correspond to specific tests
+Now you're going to write your own test.
 
-<table>
-  <tr>
-    <td>Given</td>
-    <td>When</td>
-    <td>Then</td>
-  </tr>
-  <tr>
-    <td>I have $100 in my account</td>
-    <td>I deposit $50</td>
-    <td>I see that my account contains $150</td>
-  </tr>
-  <tr>
-    <td>I have $100 in my account</td>
-    <td>I withdraw $50</td>
-    <td>I see that my account contains $50</td>
-  </tr>
-  <tr>
-    <td>I have $50 in my account</td>
-    <td>I withdraw $100</td>
-    <td>I see that my withdrawal was unsuccessful
-And I see that my account contains $50</td>
-  </tr>
-</table>
+Look in the class **`com.thoughtworks.accountbalance.AccountTests`**. You'll see three commented out empty unit tests
+(one for each of the test cases listed below).
+
+For each of the test cases:
+1. Implement the test for that test case. Uncomment it and add a test code inside it.
+2. Fix compile errors.
+3. Watch the test fail.
+4. Write now code that you expect to make the test pass.
+5. Watch the test pass. If any of your tests fail, you should you should repeat step #4.
+6. Commit your changes and go back to Step #1 for the next test case.
+
+| Given                     | When            | Then                                |
+| ------------------------- | --------------- | ----------------------------------- |
+| I have $100 in my account | I deposit $50   | I see that my account contains $150 |
+| I have $100 in my account | I withdraw $50  | I see that my account contains $50  |
+| I have $50 in my account  | I withdraw $100 | I see that my account contains $50  |
