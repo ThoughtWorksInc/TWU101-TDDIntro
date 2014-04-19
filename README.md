@@ -251,7 +251,7 @@ next change, write down the options and do them one at at time. Here’s our cur
 public class StringJoinerTests {
     @Test
     public void shouldFooWhenBar() {
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         String result = new StringJoiner().join(strings);
     }
 }
@@ -264,7 +264,7 @@ public class StringJoinerTests {
 public class StringJoinerTests {
     @Test
     public void shouldFooWhenBar() {
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         String result = new StringJoiner().join(strings);
         assertThat(result, is(""));
     }
@@ -280,7 +280,7 @@ rename the test based on what we know about the purpose of our test.
 public class StringJoinerTests {
     @Test
     public void shouldJoinIntoAnEmptyStringWhenListIsEmpty() {
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         String result = new StringJoiner().join(strings);
         assertThat(result, is(""));
     }
@@ -295,7 +295,7 @@ public class StringJoinerTests {
     public void shouldJoinIntoAnEmptyStringWhenListIsEmpty() {
         // Arrange
         StringJoiner joiner = new StringJoiner();
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
 
         // Action
         String result = joiner.join(strings);
@@ -312,7 +312,7 @@ Now we want to make it pass by writing the simplest code possible. This is how w
 
 ``` java
 public class StringJoiner {
-    public String join(List&ltString&gt strings) {
+    public String join(List<String> strings) {
         return "";
     }
 }
@@ -324,7 +324,7 @@ We’ll move a little faster now.
 ``` java
     @Test
     public void shouldJoinIntoTheStringWhenListIsOneString(){
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         String aString = "A String";
         strings.add(aString);
         StringJoiner joiner = new StringJoiner();
@@ -341,7 +341,7 @@ same as the first one. The test fails as expect and this is a simple way to make
 
 ``` java
 public class StringJoiner {
-    public String join(List&ltString&gt strings) {
+    public String join(List<String> strings) {
         if (strings.size() &gt 0){
             return strings.get(0);
         }
@@ -360,14 +360,14 @@ and blank lines, it looks like this:
 public class StringJoinerTests {
     @Test
     public void shouldJoinIntoAnEmptyStringWhenListIsEmpty(){
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         StringJoiner joiner = new StringJoiner();
         String result = joiner.join(strings);
         assertThat(result, is(""));
     }
     @Test
     public void shouldJoinIntoTheStringWhenListIsOneString(){
-        List&ltString&gt strings = new ArrayList&ltString&gt();
+        List<String> strings = new ArrayList<String>();
         String aString = "A String";
         strings.add(aString);
         StringJoiner joiner = new StringJoiner();
@@ -383,11 +383,11 @@ initialize in setup method like this:
 
 ``` java
 public class StringJoinerTests {
-    private List&ltString&gt strings;
+    private List<String> strings;
     private StringJoiner joiner;
     @Before
     public void setUp() throws Exception {
-        strings = new ArrayList&ltString&gt();
+        strings = new ArrayList<String>();
         joiner = new StringJoiner();
     }
     @Test
@@ -434,7 +434,7 @@ make the new test pass.
 
 ``` java
 public class StringJoiner {
-    public String join(List&ltString&gt strings) {
+    public String join(List<String> strings) {
         String result = "";
         for (String string : strings) {
             result += string;
@@ -471,11 +471,11 @@ public class StringJoiner {
         this.delimiter = delimiter;
     }
 
-    public String join(List&ltString&gt strings) {
+    public String join(List<String> strings) {
         String result = "";
         if (strings.size() &gt 0){
-            List&ltString&gt allExceptFirstString = 
-                new ArrayList&ltString&gt(strings);
+            List<String> allExceptFirstString = 
+                new ArrayList<String>(strings);
             result += allExceptFirstString.remove(0);
             for (String string : allExceptFirstString) {
                 result += delimiter + string;
@@ -502,10 +502,10 @@ public class StringJoiner {
         this.delimiter = delimiter;
     }
     
-    public String join(List&ltString&gt strings) {
+    public String join(List<String> strings) {
         if (!strings.isEmpty()){
             String firstString = strings.get(0);
-            List&ltString&gt remainingStrings = 
+            List<String> remainingStrings = 
                 strings.subList(1, strings.size());
             return firstString +           
                    concatenateWithDelimiter(otherStrings);
@@ -513,7 +513,7 @@ public class StringJoiner {
         return "";
     }
 
-    private String concatenateWithDelimiter(List&ltString&gt strings) {
+    private String concatenateWithDelimiter(List<String> strings) {
         String result = "";
         for (String string : strings) {
             result += delimiter + string;
