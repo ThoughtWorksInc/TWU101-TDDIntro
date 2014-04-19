@@ -560,6 +560,7 @@ Look in the class **`com.thoughtworks.accountbalance.AccountTests`**. You'll see
 (one for each of the test cases listed below).
 
 For each of the test cases:
+
 1. Implement the test for that test case. Uncomment it and add a test code inside it.
 2. Fix compile errors.
 3. Watch the test fail.
