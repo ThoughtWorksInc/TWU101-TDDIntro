@@ -183,14 +183,10 @@ If you don’t have a good sense of what your test to look like when you start w
 
 Here’s an example of Test Driving a **`StringJoiner`** class whose job is to *Join* strings.
 
-&lttable&gt
-  &lttr&gt
-    &lttd&gt**Join** -
-Joining a list of strings means creating a single new string by concatenating the string in list together with a
-delimiter between them. For instance, joining the strings {"a", "b”, "c”} on the delimiter ",” would result in the string "a,b,c”. Note that there is not a leading or trailing comma.&lt/td&gt
-  &lt/tr&gt
-&lt/table&gt
-
+> **Join** -
+>Joining a list of strings means creating a single new string by concatenating the string in list together with a
+> delimiter between them. For instance, joining the strings {"a", "b”, "c”} on the delimiter ",” would result in the
+> string "a,b,c”. Note that there is not a leading or trailing comma.
 
 1) Create all of the test scaffolding and get it to compile (name your test something ugly).
 
@@ -310,7 +306,7 @@ public class StringJoinerTests {
 }
 ```
 
-## New we can run the test and watch it fail by clicking anywhere in the test file and hitting Ctrl-Shift-F10. 
+We can run the test and watch it fail by clicking anywhere in the test file and hitting Ctrl-Shift-F10.
 
 Now we want to make it pass by writing the simplest code possible. This is how we can make the test pass:
 
@@ -385,7 +381,7 @@ The blue colored lines are exactly the same in both tests. Let’s fix this whil
 confidence that we didn’t break anything. We can move change these local variables into instance variables which we 
 initialize in setup method like this:
 
-```
+``` java
 public class StringJoinerTests {
     private List&ltString&gt strings;
     private StringJoiner joiner;
