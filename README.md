@@ -71,7 +71,8 @@ Once you know the behavior you want to verify and the method where you expect ad
 JUnit is a popular Java unit testing framework. We’re going to use JUnit to create our TDD unit tests.
 
 JUnit example:
-```
+
+``` java
 public class PluralizerTests {
     ...
 
@@ -92,15 +93,18 @@ public class PluralizerTests {
 
 ### Test Classes
 
-We call the class that we are testing the *class under test*. In the example above, the class under test is **`Pluralize**r`.**_ _**All of the unit tests for the *class under test* will live inside a test class named: **`<class under test>Tests.jav**a`.` `
+We call the class that we are testing the *class under test*. In the example above, the class under test is **`Pluralizer`**
+All of the unit tests for the *class under test* will live inside a test class named: **`<class under test>Tests.java`**
 
 ### Anatomy of a Unit Test
 
-There are three sections to every unit test. One set of names for these sections is: Arrange, Action, Assert. Another is: Given, When, Then. 
+There are three sections to every unit test. One set of names for these sections is: Arrange, Action, Assert.
+Another is: Given, When, Then.
 
 #### Arrange/Given 
 
-This is where we set the stage for our scenario. That means that we create all of the objects we need for the test in this section. While arranging happens at the top of our test, we often make changes here after working on the other two sections.
+This is where we set the stage for our scenario. That means that we create all of the objects we need for the test in
+this section. While arranging happens at the top of our test, we often make changes here after working on the other two sections.
 
 #### Action/When
 
@@ -108,7 +112,8 @@ The Action/When section is where we call the method that we are testing (the Act
 
 #### Assert/Then
 
-We verify that the method under test caused the right thing to happen in Assert/Then section of our tests. If you feel like you need more than one assert you should probably split your test.
+We verify that the method under test caused the right thing to happen in Assert/Then section of our tests. If you feel
+like you need more than one assert you should probably split your test.
 
 ### Writing a test
 
@@ -132,11 +137,11 @@ If you don’t have a good sense of what your test to look like when you start w
 
 6. Name your test
 
-Here’s an example of Test Driving a **`StringJoine**r` class whose job is to *Join* strings.
+Here’s an example of Test Driving a **`StringJoiner`** class whose job is to *Join* strings.
 
 <table>
   <tr>
-    <td>Join
+    <td>**Join** -
 Joining a list of strings means creating a single new string by concatenating the string in list together with a delimiter between them. For instance, joining the strings {"a", “b”, “c”} on the delimiter “,” would result in the string “a,b,c”. Note that there is not a leading or trailing comma.</td>
   </tr>
 </table>
@@ -144,44 +149,36 @@ Joining a list of strings means creating a single new string by concatenating th
 
 1) Create all of the test scaffolding and get it to compile (name your test something ugly).
 
-<table>
-  <tr>
-    <td>public class StringJoinerTests {
-@Test
-public void shouldFooWhenBar() {
+``` java
+public class StringJoinerTests {
+    @Test
+    public void shouldFooWhenBar() {
+    }
 }
-}</td>
-  </tr>
-</table>
+```
 
+2 & 3) Next, create an instance of the class you are testing and call the method. You should type out the name of the
+class and method even if they don’t exist yet. In the example below, assume that the class **`StringJoiner`** doesn’t exist yet.
 
-2 & 3) Next, create an instance of the class you are testing and call the method. You should type out the name of the class and method even if they don’t exist yet. In the example below, assume that the class **`StringJoine**r` doesn’t exist yet.
-
-<table>
-  <tr>
-    <td>public class StringJoinerTests {
-@Test
-public void shouldFooWhenBar() {
-    String result = new StringJoiner().join();
+``` java
+public class StringJoinerTests {
+    @Test
+    public void shouldFooWhenBar() {
+        String result = new StringJoiner().join();
+    }
 }
-}</td>
-  </tr>
-</table>
+```
 
+Because **`StringJoiner`** doesn’t exist yet, our IDE highlights it in red. In IntelliJ we can click on the class name, press Alt-Enter and choose the option **`Create Class ‘StringJoiner**’`. This will automatically create the class for you. After the class is created our test will look like this...
 
-Because **`StringJoine**r` doesn’t exist yet, our IDE highlights it in red. In IntelliJ we can click on the class name, press Alt-Enter and choose the option **`Create Class ‘StringJoiner**’`. This will automatically create the class for you. After the class is created our test will look like this...
-
-<table>
-  <tr>
-    <td>public class StringJoinerTests {
-@Test
-public void shouldFooWhenBar() {
-    String result = new StringJoiner().join();
+``` java
+public class StringJoinerTests {
+    @Test
+    public void shouldFooWhenBar() {
+        String result = new StringJoiner().join();
+    }
 }
-}</td>
-  </tr>
-</table>
-
+```
 
 The write method is red because it’s not implemented yet. Hit Alt-Enter and choose **`Create Method ’join**’`. Now we’re calling the method we want to test. Here are some useful questions we can ask:
 
