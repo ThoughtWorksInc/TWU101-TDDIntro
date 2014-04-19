@@ -71,28 +71,24 @@ Once you know the behavior you want to verify and the method where you expect ad
 JUnit is a popular Java unit testing framework. We’re going to use JUnit to create our TDD unit tests.
 
 JUnit example:
+```
+public class PluralizerTests {
+    ...
 
-<table>
-  <tr>
-    <td>public class PluralizerTests {
-...
+    @Test
+    public void shouldAddSWhenWordIsNormal() {
+    // Arrange our objects
+    Pluralizer pluralizer = new Pluralizer();
 
-@Test
-public void shouldAddSWhenWordIsNormal() {
-// Arrange our objects
-Pluralizer pluralizer = new Pluralizer();
+    // Action we are testing
+    String result = pluralizer.pluralize("Cat");
 
-// Action we are testing
-String result = pluralizer.pluralize("Cat");
-
-// Assert that the action caused the expected result
-assertThat(result, is(“Cats”));
+    // Assert that the action caused the expected result
+    assertThat(result, is(“Cats”));
+    }
+    ...
 }
-...
-}</td>
-  </tr>
-</table>
-
+```
 
 ### Test Classes
 
