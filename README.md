@@ -535,6 +535,22 @@ public class StringJoiner {
 As a result of our disciplined practice of TDD, we have evidence that our code is correct and we were able to safely
 refactor it into code that is easier to read, extend, and test.
 
+## Get the code for this tutorial
+
+1. Clone the git repo
+  1. Go to the repository page for this tutorial
+  2. Click the **`Copy to clipboard`** button next to the **`HTTPS clone URL`** label
+  3. At the command line, go to your projects directory (you may need to create one) and type **`git clone`** and past
+  the URL of the repo (this is in your clipboard from the previous step). Then hit enter. This should create a new
+  directory named TDDIntro in your projects directory and copy a bunch of files into it.
+1.2 Open TDDIntro in IntelliJ
+  1. Open IntelliJ
+  2. Choose **`Import Project`** and select the root directory of the TDDIntro project.
+  3. Make sure that **`Import project from external model`** and **`Gradle`** are selected and hit **`Next`**.
+  4. If the **`Use default Gradle wrapper`** radio button is selected then hit **`Finish`** and you are ready to go.
+  5. Otherwise, click the **`Use local Gradle installation`** radio button and browse to the gradle directory inside
+  this project. Then hit **`Finish`** and you are ready to go.
+
 ## Factorial Exercise
 
 Open the class **`com.thoughtworks.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
