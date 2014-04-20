@@ -543,7 +543,7 @@ refactor it into code that is easier to read, extend, and test.
   3. At the command line, go to your projects directory (you may need to create one) and type **`git clone`** and past
   the URL of the repo (this is in your clipboard from the previous step). Then hit enter. This should create a new
   directory named TDDIntro in your projects directory and copy a bunch of files into it.
-1.2 Open TDDIntro in IntelliJ
+2. Open TDDIntro in IntelliJ
   1. Open IntelliJ
   2. Choose **`Import Project`** and select the root directory of the TDDIntro project.
   3. Make sure that **`Import project from external model`** and **`Gradle`** are selected and hit **`Next`**.
