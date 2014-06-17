@@ -1,5 +1,33 @@
 
-## Test Doubles & Stubs
+## Using Test Doubles to Break Dependencies
+Up to this point, we’ve test driven situations where the class we are testing does not depend on any other class and we
+only care that we get the right return value from a method. In real life we often have to deal with:
+
+* `void` methods which have no return value for us to assert against
+* methods that don't take any parameters 
+* classes that use other classes that we shouldn't interact with inside a test (e.g. `System.out` or database)
+
+These are all cases where we want to use a class differently in our tests and production code.
+
+### Testing `void` methods
+
+## Breaking Dependencies
+### Sensing & Separation
+
+We break dependencies:
+ * so we can *sense* when we can't access values our code computes
+ * to *separate* when we can't even get a piece of code into a test harness to run.
+
+#### Sensing
+ * *verify*
+ * getters and non-private fields
+
+#### Separation
+ * *when*
+ * avoid using real resources
+ * helps write maintainable tests
+
+
 	[Wikipedia](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
 
 * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
@@ -16,7 +44,6 @@
 
 Bill, edit for clarity & simplicity. Pictures and/or code?
 
-Up to this point, we’ve test driven situations where we only care that we get the right return value from a method. In real object-oriented code, we care about object interactions. For example, if we tell our Car to accelerate we want it to give the Engine more fuel. An implementation of this might look like this:
 
 
 
