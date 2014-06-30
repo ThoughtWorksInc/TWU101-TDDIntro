@@ -1,13 +1,33 @@
+## Mocks & Stubs
 
-## Using Test Doubles to Break Dependencies
+### Test Doubles
 Up to this point, we’ve test driven situations where the class we are testing does not depend on any other class and we
-only care that we get the right return value from a method. In real life we often have to deal with:
+only care that we get the right return value from a method. In real life we often have:
 
 * `void` methods which have no return value for us to assert against
 * methods that don't take any parameters 
-* classes that use other classes that we shouldn't interact with inside a test (e.g. `System.out` or database)
+* code that calls methods that is bad for our tests (e.g. current time, `System.out` or database)
 
-These are all cases where we want to use a class differently in our tests and production code.
+> **System.out.println()**
+> `System.out` is a public static variable that is of type PrintStream. That means that we could refactor 
+> `System.out.println()` to 
+> ```
+> PrintStream printStream = System.out;
+> printStream.println();
+> ```
+> string "a,b,c”. Note that there is not a leading or trailing comma.
+
+
+These are all situations where we want our tests to behave differently than our production code without changing our 
+production code when we test it. 
+
+How can we change the behavior of our code without changing our code?
+
+We can accomplish this by changing the behavior of the methods that our code calls. What if `println()` did something 
+different when we call it while testing? In our tests it could tell us what it tried to print (without actually printing
+ anything) and in our production code we could have it print normally.
+ 
+A simple way to do this is to give 
 
 ### Testing `void` methods
 
