@@ -9,6 +9,7 @@ only care that we get the right return value from a method. In real life we ofte
 * code that calls methods that is bad for our tests (e.g. current time, `System.out` or database)
 
 > **System.out.println()**
+>
 > `System.out` is a public static variable that is of type PrintStream. That means that we could refactor 
 > `System.out.println()` to 
 > ```
