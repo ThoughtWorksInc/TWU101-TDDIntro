@@ -8,27 +8,33 @@ only care that we get the right return value from a method. In real life we ofte
 * methods that don't take any parameters 
 * code that calls methods that is bad for our tests (e.g. current time, `System.out` or database)
 
-These are all situations where we want our tests to behave differently than our production code without changing our 
-production code when we test it. 
+These are all situations where we want our tests to behave differently than our production code without having to 
+modify our production code in order to test it. 
 
-How can we change the behavior of our code without changing our code?
+_How can we change the behavior of our code without changing our code?_
 
 We can accomplish this by changing the behavior of the methods that our code calls. What if `println()` did something 
 different when we call it while testing? In our tests it could tell us what it tried to print (without actually printing
  anything) and in our production code we could have it print normally.
 
-> **System.out.println()**
->
-> `System.out` is a public static variable that is of type `PrintStream`.
-> ```
-> System.out.println();
-> // Can be refactored into
-> PrintStream printStream = System.out;
-> printStream.println();
-> ```
-> The is significant because it means we can pass a `PrintStream` instead of using `System.out` when we want to print.
+Create a HelloWorld program (or open an existing one) in IntelliJ. Click on the `out` in `System.out.println` and hit 
+Command-B(Go to implementation). This takes you to the class `System` where you'll see the line:
+``` java
+public final static PrintStream out = null;
+```
+
+This tells us that the variable `out` is of type `PrintStream` which is really nice to know. That means that if we want
+to call `println` all we need is a reference that is a `PrintStream` object.
+
+
+Another way to look at this is to select `System.out` and hit Alt-Command-V(Introduce Variable). You'll get something 
+that looks like this:
+``` java
+PrintStream printStream = System.out;
+printStream.println();
+```
  
-Now that we know the type of `System.out` we can pass it into the constructor of the class we want to test and _inject 
+Now that we know the type of `System.out` we just need to make our `printStream` variable available to the methodcan pass it into the constructor of the class we want to test and _inject 
 our dependencies_ this pattern is called _dependency injection_. 
 
 ### Testing `void` methods
@@ -117,13 +123,15 @@ verify(mockList).clear();
 &lt/table&gt
 
 
-In this example, Mockito is used to mock a LinkedList.  Even though the list is cleared, the mock lets you access which methods have been called on mockList.
+In this example, Mockito is used to mock a LinkedList.  Even though the list is cleared, the mock lets you access which 
+methods have been called on mockList.
 
 ## Mockito Screencast
 
 ## Patterns: Add example code
 
-These are concepts/strategies that tend to lead to test that drive us to write testable and flexible code. You should think of them as recipes. They are guidelines to help you succeed when you first start writing tests. Over time you will learn when and where to improvise on these recipes.
+These are concepts/strategies that tend to lead to test that drive us to write testable and flexible code. You should 
+think of them as recipes. They are guidelines to help you succeed when you first start writing tests. Over time you will learn when and where to improvise on these recipes.
 
 Single Constructor
 
@@ -135,23 +143,33 @@ No Statics
 
 ## TDD Anti-patterns: Add example code
 
+**Chained mocks and the Law of Demeter**
+
+
 Here are some common pithy-named anti-patterns in TDD:
 
 **Excessive Setup**
 
-A test that requires a lot of work setting up in order to even begin testing. Sometimes several hundred lines of code is used to setup the environment for one test, with several objects involved, which can make it difficult to really ascertain what is tested due to the "noise" of all of the setup going on.
+A test that requires a lot of work setting up in order to even begin testing. Sometimes several hundred lines of code is 
+used to setup the environment for one test, with several objects involved, which can make it difficult to really 
+ascertain what is tested due to the "noise" of all of the setup going on.
 
 **The Giant**
 
-A unit test that, although it is validly testing the object under test, can span thousands of lines and contain many many test cases. This can be an indicator that the system under tests is a [God Object](http://en.wikipedia.org/wiki/God_object)
+A unit test that, although it is validly testing the object under test, can span thousands of lines and contain many 
+many test cases. This can be an indicator that the system under tests is a 
+[God Object](http://en.wikipedia.org/wiki/God_object)
 
 **Generous Leftovers ****[[4**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#joakim)
 
-An instance where one unit test creates data that is persisted somewhere, and another test reuses the data for its own devious purposes. If the "generator" is ran afterward, or not at all, the test using that data will outright fail.
+An instance where one unit test creates data that is persisted somewhere, and another test reuses the data for its own 
+devious purposes. If the "generator" is run afterwards, or not at all, the test using that data will fail.
 
 **The Dodger ****[[1**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#frank)
 
-A unit test which has lots of tests for minor (and presumably easy to test) side effects, but never tests the core desired behavior. Sometimes you may find this in database access related tests, where a method is called, then the test selects from the database and runs assertions against the result.
+A unit test which has lots of tests for minor (and presumably easy to test) side effects, but never tests the core 
+desired behavior. Sometimes you may find this in database access related tests, where a method is called, then the test 
+selects from the database and runs assertions against the result.
 
 For more examples, read [James Carr’s whole article on TDD Anti-Patterns](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/)
 
