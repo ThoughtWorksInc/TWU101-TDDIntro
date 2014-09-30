@@ -123,11 +123,27 @@ public class GreetingPrinterTest {
 }
 ```
 
-Now that we know the type of `System.out` we just need to make our `printStream` variable available to the method that 
-wants to print. Two ways to make this variable accesscan pass it into the constructor of the class we want to test and _inject 
-our dependencies_ this pattern is called _dependency injection_. 
+### Stub class
+Stubs are modules of code that simulate the behaviors of software components that a module under test depends on. 
+In our code example `FakePrintStream` is a stub class and GreetingPrinter is the module under test.
 
-### Testing `void` methods
+### Dependency Injection
+GreetingPrinter is said to be dependent on PrintStream, because it depends on PrintStream to do some work for it. 
+One pattern for managing your dependencies is to create them in the constructor of the class that needs them. For 
+instance:
+``` java
+    public Foo() {
+        this.bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    }
+``` 
+The problem with this pattern is that whenever we create a new instance of Foo, it will have to use the BufferedReader 
+that reads from `System.in` even if we want it to behave differently (like we do in our tests). This pattern is 
+inflexible and you should generally avoid it. 
+
+An alternative is to pass dependencies into the constructor of the class the needs those dependencies. This pattern is 
+called _dependency injection_ because we inject a class' dependencies instead of having the class create them itself. 
+This pattern increases the flexibility of our code by allowing us to create different instances of the same class that 
+behave differently because they use different versions of their dependencies.
 
 ## Breaking Dependencies
 ### Sensing & Separation
