@@ -589,3 +589,151 @@ For each of the test cases:
 | I have $100 in my account | I deposit $50   | I see that my account contains $150 |
 | I have $100 in my account | I withdraw $50  | I see that my account contains $50  |
 | I have $50 in my account  | I withdraw $100 | I see that my account contains $50  |
+
+
+## Mocks & Stubs
+
+### Test Doubles
+Up to this point, we’ve test driven situations where the class we are testing does not depend on any other class and we
+only care that we get the right return value from a method. In real life we often have:
+
+* `void` methods which have no return value for us to assert against
+* methods that don't take any parameters 
+* code that calls methods with behavior that we don't want to happen when we run our tests (e.g. current time, 
+`System.out` or database)
+
+These are all situations where we want our tests to behave differently than our production code without having to 
+modify our production code in order to test it. 
+
+_How can we change the behavior of our code without changing our code?_
+
+What if `println(String string)` did something different when we call it while testing? In our tests we could have it 
+record the string that it was passed to print (without actually printing anything) and in our production code we could 
+have it print normally. This makes it safe to use `println()` in our tests and yet still behave properly in real life.
+
+> Exercise 
+> Create a HelloWorld program (or open an existing one) in IntelliJ. Click on the `out` in `System.out.println` and hit 
+> Command-B(Go to implementation). This takes you to the class `System` where you'll see the line:
+> ``` java
+> public final static PrintStream out = null;
+> ```
+> 
+> This tells us that the variable `out` is of type `PrintStream` which is really nice to know. That means that if we want
+> to call `println` all we need is a reference that is a `PrintStream` object.
+> 
+> Another way to look at this is to select `System.out` and hit Alt-Command-V(Introduce Variable). You'll get something 
+> that looks like this:
+> ``` java
+> PrintStream printStream = System.out;
+> printStream.println();
+> ```
+
+Now let's use this information to write a some testable code that prints a greeting for us. Here's an untestable 
+(and untested) version of `GreetingPrinter`:
+``` java
+public class GreetingPrinter {
+    public static void main(String[] args) {
+        System.out.println("Greetings!");
+    }
+}
+```
+
+The `main` method isn't testable because we have no mechanism to avoid using a real PrintStream and if we call main the 
+program will print to the console, which we don't want to happen when we're running a large test suite.
+
+We'll extract out the PrintStream just like we did in our last example and the code looks like this:
+``` java
+public static void main(String[] args) {
+        PrintStream printStream = System.out;
+        printStream.println("Greetings!");
+    }
+}
+```
+
+This still isn't testable, but it should us that we can create our PrintStream in one place and use it in another. We 
+can declare the PrintStream variable in the main method and use it in another method. When we do this we need to 
+make the PrintStream variable available in the calling method so we can use it. A great way to do that is by passing 
+`printStream` into the constructor of the class that uses it.
+
+``` java
+public class Main {
+    public static void main(String[] args) {
+        GreetingPrinter greetingPrinter = new GreetingPrinter(System.out);
+        greetingPrinter.printGreeting();
+    }
+}
+
+public class GreetingPrinter {
+    private PrintStream printStream;
+
+    public GreetingPrinter(PrintStream printStream) {
+        this.printStream = printStream;
+    }
+
+    public void printGreeting(){
+        printStream.println("Greetings!");
+    }
+}
+```
+
+This is a key refactoring because it lets the printGreetings method use whatever kind of PrintStream we want. 
+For example, we could make a new class called FakePrintStream that extends PrintStream, but doesn't print anything when
+we call `println(String string)` and instead records the string that is passed to it.
+ 
+``` java
+public class FakePrintStream extends PrintStream {
+    private String printedString;
+
+    public FakePrintStream() {
+        super(new FakeOutputStream());
+    }
+
+    @Override
+    public void println(String string) {
+        printedString = string;
+    }
+
+    public String printedString() {
+        return printedString;
+    }
+}
+```
+
+This would let us a write a test that looks like this:
+``` java
+public class GreetingPrinterTest {
+
+    @Test
+    public void shouldPrintGreeting() {
+        FakePrintStream printStream = new FakePrintStream();
+        GreetingPrinter greetingPrinter = new GreetingPrinter(printStream);
+
+        greetingPrinter.printGreeting();
+
+        assertThat(printStream.printedString(), is("Greetings!"));
+    }
+
+}
+```
+
+### Stub class
+Stubs are modules of code that simulate the behaviors of software components that a module under test depends on. 
+In our code example `FakePrintStream` is a stub class and GreetingPrinter is the module under test.
+
+### Dependency Injection
+GreetingPrinter is said to be dependent on PrintStream, because it depends on PrintStream to do some work for it. 
+One pattern for managing your dependencies is to create them in the constructor of the class that needs them. For 
+instance:
+``` java
+    public Foo() {
+        this.bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    }
+``` 
+The problem with this pattern is that whenever we create a new instance of Foo, it will have to use the BufferedReader 
+that reads from `System.in` even if we want it to behave differently (like we do in our tests). This pattern is 
+inflexible and you should generally avoid it. 
+
+An alternative is to pass dependencies into the constructor of the class the needs those dependencies. This pattern is 
+called _dependency injection_ because we inject a class' dependencies instead of having the class create them itself. 
+This pattern increases the flexibility of our code by allowing us to create different instances of the same class that 
+behave differently because they use different versions of their dependencies.
