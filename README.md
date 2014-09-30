@@ -716,7 +716,7 @@ public class GreetingPrinterTest {
 }
 ```
 
-### Stub class
+### Stubs
 Stubs are modules of code that simulate the behaviors of software components that a module under test depends on. 
 In our code example `FakePrintStream` is a stub class and GreetingPrinter is the module under test.
 
@@ -737,3 +737,57 @@ An alternative is to pass dependencies into the constructor of the class the nee
 called _dependency injection_ because we inject a class' dependencies instead of having the class create them itself. 
 This pattern increases the flexibility of our code by allowing us to create different instances of the same class that 
 behave differently because they use different versions of their dependencies.
+
+## Mocks
+
+> Mock object
+> From Wikipedia, the free encyclopedia
+> In object-oriented programming, mock objects are simulated objects that mimic the behavior of real objects in 
+> controlled ways. A programmer typically creates a mock object to test the behavior of some other object, in much the 
+> same way that a car designer uses a crash test dummy to simulate the dynamic behavior of a human in vehicle impacts.
+
+We're primarily going to use mock objects to:
+* verify object interactions
+* provide return values from dependencies
+
+## Mockito
+
+Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful methods, *when...thenReturn *(for stubbing)*, *and *verify *(for mocking)*. *Check out the following examples, from the [Mockito homepage](https://code.google.com/p/mockito/):
+
+### Verify example
+In our previous example where we used a FakePrintStream, we had to create two new classes just to verify a single 
+interaction. This adds a lot of overhead even for simple tests. Mocking frameworks, like Mockito, allow for much simpler
+mocking. If we used Mockito in our previous example it would look something like this:
+``` java
+@Test
+public void shouldPrintGreeting() {
+    PrintStream printStream = mock(PrintStream.class);
+    GreetingPrinter greetingPrinter = new GreetingPrinter(printStream);
+
+    greetingPrinter.printGreeting();
+
+    verify(printStream).println("Greetings!");
+}
+```
+
+The important parts of this version of the test are `mock(PrintStream.class)` and `verify`. The mock statement tells 
+Mockito to create a new mock object that honors the PrintStream interface (but has none of the behavior of PrintStream).
+Verify asks Mockito to assert that the println method was call on the printStream object with the parameter "Greetings!".
+
+### When/thenReturn
+
+Sometimes our tests need specific return values from the objects they depend upon. Mockito provides the when/thenReturn
+functionality to support this.
+``` java
+@Test
+public void shouldPrintTime() { 
+    PrintStream printStream = mock(PrintStream.class);
+    DateTime dateTime = mock(DateTime.class);
+    when(dateTime.toString()).thenReturn("2013-04-08 16:33:17");
+    TimePrinter timePrinter = new TimePrinter(printStream, dateTime);
+    
+    timePrinter.print();
+    
+    verify(printStream).println("2013-04-08 16:33:17");
+}
+```

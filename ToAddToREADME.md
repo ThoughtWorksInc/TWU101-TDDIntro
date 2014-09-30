@@ -1,5 +1,16 @@
 
+## Why we use test doubles
+* To break dependencies
+* To supplies results (e.g., the current time or the current temperature);
+* To mimic object states that are difficult to create or reproduce (e.g., a network error);
+* To avoid slow interactions (e.g., a complete [database](http://en.wikipedia.org/wiki/Database), which would have to 
+be initialized before the test);
+* To fill in for a class that does not yet exist or may change behavior;
+* Include information and methods exclusively for testing purposes (and not for its actual task).
+
 ## Breaking Dependencies
+TDD helps expose our dependencies
+
 ### Sensing & Separation
 
 We break dependencies:
@@ -10,83 +21,23 @@ We break dependencies:
  * *verify*
  * getters and non-private fields
 
+Mocks let us sense interactions that are important to the tests we're writing.
+
 #### Separation
  * *when*
  * avoid using real resources
  * helps write maintainable tests
 
+## Further reading:
 
-	[Wikipedia](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
-
+* [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
+* [Wikipedia](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
 * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
-
 * [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
-
 * [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
-
 * [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
-
 * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
 
-## Mocks
-
-Bill, edit for clarity & simplicity. Pictures and/or code?
-
-
-
-
-	[Wikipedia](http://en.wikipedia.org/wiki/Mock_object) gives an overview of mock objects; especially useful when the real object:
-
-* supplies [non-deterministic](http://en.wikipedia.org/wiki/Nondeterministic_algorithm) results (e.g., the current time or the current temperature);
-
-* has states that are difficult to create or reproduce (e.g., a network error);
-
-* is slow (e.g., a complete [database](http://en.wikipedia.org/wiki/Database), which would have to be initialized before the test);
-
-* does not yet exist or may change behavior;
-
-* would have to include information and methods exclusively for testing purposes (and not for its actual task).
-
-For a more detailed explanation, see [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
-
-## Mockito
-
-Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful methods, *when...thenReturn *(for stubbing)*, *and *verify *(for mocking)*. *Check out the following examples, from the [Mockito homepage](https://code.google.com/p/mockito/):
-
-**_when...thenReturn Example:_**
-
-&lttable&gt
-  &lttr&gt
-    &lttd&gtimport static org.mockito.Mockito.*;
-import org.pojava.datetime.DateTime;
-
-DateTime mockDateTime = mock(DateTime.class);
-when(mockDateTime.toString()).thenReturn("2013-04-08 16:33:17");
-System.out.println(mockDateTime.toString());&lt/td&gt
-  &lt/tr&gt
-&lt/table&gt
-
-
-**_verify Example:_**
-
-&lttable&gt
-  &lttr&gt
-    &lttd&gt@Test
-public void shouldSomething(){
-LinkedList mockList = mock(LinkedList.class);
-mockList.add("one");
-mockList.clear();
-verify(mockList).add("one”);
-verify(mockList).clear();
-}&lt/td&gt
-  &lt/tr&gt
-&lt/table&gt
-
-
-In this example, Mockito is used to mock a LinkedList.  Even though the list is cleared, the mock lets you access which 
-methods have been called on mockList.
-
-## Mockito Screencast
 
 ## Patterns: Add example code
 
