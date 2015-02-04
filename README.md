@@ -100,7 +100,7 @@ method that returns the plural version of a word. In English, the way we plurali
 
 Once you know what behavior you want to verify you can name your test. A great format for test names is,
 `should<expected behavior>When<situation that behavior depends on>`. In our pluralizing example, the expected
-behavior is ‘add an s’ and the situation is ‘normal word’. That means that we could name out test
+behavior is ‘add an s’ and the situation is ‘normal word’. That means that we could name our test
 `shouldAddSWhenWordIsNormal`. Since it’s not necessarily clear what it means for a word to be ‘normal’, we could also
 name the test `shouldAddS` or `shouldAddSToWord`.
 
@@ -418,7 +418,7 @@ There’s also a new method call **`setUp`** which has the **`@Before`** annotat
 **`@Before`** will be executed before each test in that same class. This allows us to reset the strings and joiner 
 instance variables so that they don’t allow the actions of one test to affect another.
 
-So far we have taken such small steps that out **`StringJoiner`** class doesn’t do much. This is normal for TDD, we’re 
+So far we have taken such small steps that our **`StringJoiner`** class doesn’t do much. This is normal for TDD, we’re
 implementing the behavior we want in very small slices but they will quickly add up to everything we need. Here’s our 
 next test.
 
@@ -612,7 +612,7 @@ record the string that it was passed to print (without actually printing anythin
 have it print normally. This makes it safe to use `println()` in our tests and yet still behave properly in real life.
 
 > Exercise 
-> Create a HelloWorld program (or open an existing one) in IntelliJ. Click on the `out` in `System.out.println` and hit 
+> Create a HelloWorld program (or open an existing one) in IntelliJ. Click on the `out` in `System.out.println` and hit
 > Command-B(Go to implementation). This takes you to the class `System` where you'll see the line:
 > ``` java
 > public final static PrintStream out = null;
@@ -621,7 +621,7 @@ have it print normally. This makes it safe to use `println()` in our tests and y
 > This tells us that the variable `out` is of type `PrintStream` which is really nice to know. That means that if we want
 > to call `println` all we need is a reference that is a `PrintStream` object.
 > 
-> Another way to look at this is to select `System.out` and hit Alt-Command-V(Introduce Variable). You'll get something 
+> Another way to look at this is to select `System.out` and hit Alt-Command-V(Introduce Variable). You'll get something
 > that looks like this:
 > ``` java
 > PrintStream printStream = System.out;
@@ -656,7 +656,7 @@ make the PrintStream variable available in the calling method so we can use it. 
 `printStream` into the constructor of the class that uses it.
 
 ``` java
-public class Main {
+public class com.thoughtworks.library.Main {
     public static void main(String[] args) {
         GreetingPrinter greetingPrinter = new GreetingPrinter(System.out);
         greetingPrinter.printGreeting();
@@ -791,3 +791,39 @@ public void shouldPrintTime() {
     verify(printStream).println("2013-04-08 16:33:17");
 }
 ```
+
+### Write some tests using Mockito
+
+In this exercise we're going to implement some test for an existing class, Library, that prints a list of books to a
+PrintStream. Since we're implementing the tests after the code under test is already written we are NOT doing TDD. Most
+programmers call this development approach Test Last (instead of Test First). You should generally avoid Test
+Last development, but it's a smart thing to do if you inherit untested code.
+
+#### Using Verify
+
+Find the class com.thoughtworks.library.Main and run it. This shows you the existing behavior of the program; which is
+to print out the three books that are added in the Main class. Note that we are passing the list of books and the
+PrintStream into the constructor of Library. This let's us use a real PrintStream in our main method and a mock
+PrintStream in our tests.
+
+When we run main books print to the console, but when we finish writing our Library tests
+nothing will print to the console except the test results. This is important because in real projects we might have tens
+of thousands of tests and if many of them printed to the console we wouldn't be able to find the test results in all of
+spam from our program printing so much.
+
+Now go to the class com.thoughtworks.library.LibraryTest (it's located in the test/java directory). This class has three
+unit tests in it. The first one is mostly implemented. You should add a verify statement to make sure that the correct
+string is being printed to the mock PrintStream.
+
+Once you get the first test completed, you should implement the next two tests one at a time. They should mostly be similar to the
+first one. This is a good time to introduce a setup method using the @Before annotation. A good way to ensure that your
+tests are testing the right thing is to change the code that you are testing and make sure the test fail the way you
+expect them to. For instance, you could change the listBooks method to always print "Book Title" exactly one time. This
+should make some tests fail and still allow others to pass. Try it and see if your tests do what you think they do. Then
+put the listBooks method back to it's original state.
+
+#### Using when/thenReturn
+
+Work through the remaining tests in LibraryTest the same way you did the first three. This time we're testing the
+listBooks method and using when/thenReturn to make our mock DateTimeFormatter return some specific values when it is asked
+to print the time.

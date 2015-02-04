@@ -1,15 +1,6 @@
 
-## Why we use test doubles
-* To break dependencies
-* To supplies results (e.g., the current time or the current temperature);
-* To mimic object states that are difficult to create or reproduce (e.g., a network error);
-* To avoid slow interactions (e.g., a complete [database](http://en.wikipedia.org/wiki/Database), which would have to 
-be initialized before the test);
-* To fill in for a class that does not yet exist or may change behavior;
-* Include information and methods exclusively for testing purposes (and not for its actual task).
-
 ## Breaking Dependencies
-TDD helps expose our dependencies
+TDD helps expose our dependencies and dependency injection is a tool for breaking dependencies.
 
 ### Sensing & Separation
 
@@ -18,25 +9,26 @@ We break dependencies:
  * to *separate* when we can't even get a piece of code into a test harness to run.
 
 #### Sensing
- * *verify*
- * getters and non-private fields
-
-Mocks let us sense interactions that are important to the tests we're writing.
+Mocks let us sense interactions that are important to the tests we're writing but are not easy to verify without mocks.
+Mockito verify let's us easily sense these interactions. 
 
 #### Separation
+We often have code that is called in production that we would never want to call in our tests. Some reasons we might not 
+want to call this code is that it:
+ * is slow and we always want our tests to run fast
+ * interacts with a real resources that we don't want to interact with in tests
  * *when*
  * avoid using real resources
  * helps write maintainable tests
 
 ## Further reading:
-
-* [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
-* [Wikipedia](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
-* [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
-* [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
-* [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
-* [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
-* [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
+ * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
+ * [Test Double](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
+ * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
+ * [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
+ * [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
+ * [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
+ * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
 
 
 ## Patterns: Add example code
