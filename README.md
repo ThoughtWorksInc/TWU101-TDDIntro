@@ -756,7 +756,7 @@ methods:
 * `when/thenReturn` (for stubbing)
 * `verify` (for mocking)
 
-Check out the following examples, from the [Mockito homepage](https://code.google.com/p/mockito/):
+The [Mockito homepage](http://site.mockito.org/) is a great reference resource.
 
 ### Verify example
 In our previous example where we used a FakePrintStream, we had to create two new classes just to verify a single 
