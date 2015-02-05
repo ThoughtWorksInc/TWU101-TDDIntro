@@ -67,8 +67,9 @@ good point from which to begin the final step of the cycle.
 ### Refactor code
 
 Now the code should be cleaned up. Move code to where it logically belongs. Remove duplication. Make sure variable and
-method names represent their current use. Clarify constructs that might be misinterpreted. Use Kent Beck's four rules of
-simple design to guide you, as well as anything else you know about writing clean code. By re-running test cases, you
+method names represent their current use. Clarify constructs that might be misinterpreted. Use the [Four Rules of
+Simple Design](https://theholyjava.wordpress.com/2011/02/14/clean-code-four-simple-design-rules/) to guide you, as well
+as anything else you know about writing clean code. By re-running test cases, you
 can be confident that [refactoring](http://en.wikipedia.org/wiki/Code_refactoring) is not damaging any existing
 functionality.
 
