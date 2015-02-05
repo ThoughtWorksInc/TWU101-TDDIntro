@@ -628,7 +628,7 @@ have it print normally. This makes it safe to use `println()` in our tests and y
 > printStream.println();
 > ```
 
-Now let's use this information to write a some testable code that prints a greeting for us. Here's an untestable 
+Now we'll use this information to write a some testable code that prints a greeting for us. Here's an untestable
 (and untested) version of `GreetingPrinter`:
 ``` java
 public class GreetingPrinter {
@@ -794,29 +794,29 @@ public void shouldPrintTime() {
 
 ### Write some tests using Mockito
 
-In this exercise we're going to implement some test for an existing class, Library, that prints a list of books to a
-PrintStream. Since we're implementing the tests after the code under test is already written we are NOT doing TDD. Most
+In this exercise we're going to implement some test for an existing class, `Library`, that prints a list of books to a
+`PrintStream`. Since we're implementing the tests after the code under test is already written we are NOT doing TDD. Most
 programmers call this development approach Test Last (instead of Test First). You should generally avoid Test
 Last development, but it's a smart thing to do if you inherit untested code.
 
 #### Using Verify
 
-Find the class com.thoughtworks.library.Main and run it. This shows you the existing behavior of the program; which is
-to print out the three books that are added in the Main class. Note that we are passing the list of books and the
-PrintStream into the constructor of Library. This let's us use a real PrintStream in our main method and a mock
-PrintStream in our tests.
+Find the class `com.thoughtworks.library.Main` and run it. This shows you the existing behavior of the program; which is
+to print out the three books that are added in the `Main` class. Note that we are passing the list of books and the
+`PrintStream` into the constructor of `Library`. This lets us use a real `PrintStream` in our main method and a mock
+`PrintStream` in our tests.
 
-When we run main books print to the console, but when we finish writing our Library tests
+When we run main books print to the console, but when we finish writing our `Library` tests
 nothing will print to the console except the test results. This is important because in real projects we might have tens
 of thousands of tests and if many of them printed to the console we wouldn't be able to find the test results in all of
 spam from our program printing so much.
 
-Now go to the class com.thoughtworks.library.LibraryTest (it's located in the test/java directory). This class has three
-unit tests in it. The first one is mostly implemented. You should add a verify statement to make sure that the correct
-string is being printed to the mock PrintStream.
+Now go to the class `com.thoughtworks.library.LibraryTest` (it's located in the `test/java` directory). This class has three
+unit tests in it. The first one is mostly implemented. You should add a `verify` statement to make sure that the correct
+string is being printed to the mock `PrintStream`.
 
 Once you get the first test completed, you should implement the next two tests one at a time. They should mostly be similar to the
-first one. This is a good time to introduce a setup method using the @Before annotation. A good way to ensure that your
+first one. This is a good time to introduce a setup method using the `@Before` annotation. A good way to ensure that your
 tests are testing the right thing is to change the code that you are testing and make sure the test fail the way you
 expect them to. For instance, you could change the listBooks method to always print "Book Title" exactly one time. This
 should make some tests fail and still allow others to pass. Try it and see if your tests do what you think they do. Then
@@ -824,6 +824,6 @@ put the listBooks method back to it's original state.
 
 #### Using when/thenReturn
 
-Work through the remaining tests in LibraryTest the same way you did the first three. This time we're testing the
-listBooks method and using when/thenReturn to make our mock DateTimeFormatter return some specific values when it is asked
+Work through the remaining tests in `LibraryTest` the same way you did the first three. This time we're testing the
+`listBooks` method and using `when/thenReturn` to make our mock `DateTimeFormatter` return some specific values when it is asked
 to print the time.
