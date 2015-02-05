@@ -740,8 +740,7 @@ behave differently because they use different versions of their dependencies.
 
 ## Mocks
 
-> Mock object
-> From Wikipedia, the free encyclopedia
+> Wikipedia: Mock object
 > In object-oriented programming, mock objects are simulated objects that mimic the behavior of real objects in 
 > controlled ways. A programmer typically creates a mock object to test the behavior of some other object, in much the 
 > same way that a car designer uses a crash test dummy to simulate the dynamic behavior of a human in vehicle impacts.
@@ -758,6 +757,7 @@ Mockito is a Java library that lets you mock and stub objects with impunity.  It
 In our previous example where we used a FakePrintStream, we had to create two new classes just to verify a single 
 interaction. This adds a lot of overhead even for simple tests. Mocking frameworks, like Mockito, allow for much simpler
 mocking. If we used Mockito in our previous example it would look something like this:
+
 ``` java
 @Test
 public void shouldPrintGreeting() {
@@ -778,6 +778,13 @@ Verify asks Mockito to assert that the println method was call on the printStrea
 
 Sometimes our tests need specific return values from the objects they depend upon. Mockito provides the when/thenReturn
 functionality to support this.
+
+In the example below, we want to make sure that our `TimePrinter` object prints out the time that is provided by the
+`DateTime` object that we inject into it. It's much easier for us to use a mock `DateTime` and instruct that mock to
+return a specific value (in this case "2013-04-08 16:33:17") that to create a real `DateTime` object and force it to
+have a specific value. Mocking this object is especially valuable in this case because it insulates our tests from
+changes in the behavior of `DateTime` formatting.
+
 ``` java
 @Test
 public void shouldPrintTime() { 
