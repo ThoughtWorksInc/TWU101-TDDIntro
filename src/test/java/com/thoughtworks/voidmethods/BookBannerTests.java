@@ -1,6 +1,5 @@
 package com.thoughtworks.voidmethods;
 
-import com.sun.javaws.jnl.LibraryDesc;
 import org.junit.Test;
 
 import java.util.ArrayList;
