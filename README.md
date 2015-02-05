@@ -77,6 +77,12 @@ removing duplication between test code and production code—for example
 [magic numbers or strings](http://en.wikipedia.org/wiki/Magic_number_(programming)) repeated in both to make the test
 pass in the "Write some code" step.
 
+| Four Rules of Simple Design |
+| * Passes all the tests. |
+| * Expresses every idea that we need to express. |
+| * Says everything OnceAndOnlyOnce. |
+| * Has no superfluous parts. |
+
 ### Repeat
 
 Starting with another new test, repeat the cycle to push forward the functionality. The size of the steps should always
