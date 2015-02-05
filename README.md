@@ -751,7 +751,12 @@ We're primarily going to use mock objects to:
 
 ## Mockito
 
-Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful methods, *when...thenReturn *(for stubbing)*, *and *verify *(for mocking)*. *Check out the following examples, from the [Mockito homepage](https://code.google.com/p/mockito/):
+Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful
+methods:
+* `when/thenReturn` (for stubbing)
+* `verify` (for mocking)
+
+Check out the following examples, from the [Mockito homepage](https://code.google.com/p/mockito/):
 
 ### Verify example
 In our previous example where we used a FakePrintStream, we had to create two new classes just to verify a single 
