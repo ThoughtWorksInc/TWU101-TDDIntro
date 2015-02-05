@@ -1,7 +1,6 @@
 package com.thoughtworks.library;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
@@ -65,7 +64,9 @@ public class LibraryTest {
         DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
         Library library = new Library(books, printStream, dateTimeFormatter);
 
-        DateTime time = mock(DateTime.class);
+        // We don't need to mock DateTime because it is a value object
+        // We can't mock it because it is a final class
+        DateTime time = new DateTime();
         
         library.welcome(time);
         
@@ -76,7 +77,7 @@ public class LibraryTest {
     public void shouldDisplayFormattedTime() {
         List<String> books = new ArrayList<>();
         PrintStream printStream = mock(PrintStream.class);
-        DateTime time = mock(DateTime.class);
+        DateTime time = new DateTime();
         DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
 
         when(dateTimeFormatter.print(time)).thenReturn("FormattedTimeString");
