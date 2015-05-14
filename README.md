@@ -846,3 +846,78 @@ put the listBooks method back to it's original state.
 Work through the remaining tests in `LibraryTest` the same way you did the first three. This time we're testing the
 `listBooks` method and using `when/thenReturn` to make our mock `DateTimeFormatter` return some specific values when it is asked
 to print the time.
+
+## Breaking Dependencies
+TDD helps expose our dependencies and dependency injection is a tool for breaking dependencies.
+
+### Sensing & Separation
+
+We break dependencies:
+ * so we can *sense* when we can't access values our code computes
+ * to *separate* when we can't even get a piece of code into a test harness to run.
+
+#### Sensing
+Mocks let us sense interactions that are important to the tests we're writing but are not easy to verify without mocks.
+Mockito verify let's us easily sense these interactions. 
+
+#### Separation
+We often have code that is called in production that we would never want to call in our tests. Some reasons we might not 
+want to call this code is that it:
+ * is slow and we always want our tests to run fast
+ * interacts with a real resources that we don't want to interact with in tests
+ * *when*
+ * avoid using real resources
+ * helps write maintainable tests
+
+## Further reading:
+ * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
+ * [Test Double](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
+ * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
+ * [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
+ * [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
+ * [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
+ * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
+
+
+## Patterns: Add example code
+
+These are concepts/strategies that tend to lead to test that drive us to write testable and flexible code. You should 
+think of them as recipes. They are guidelines to help you succeed when you first start writing tests. Over time you will learn when and where to improvise on these recipes.
+
+Single Constructor
+
+Mock Everything
+
+Dependency Injection (screencast)
+
+No Statics
+
+## TDD Anti-patterns: Add example code
+
+**Chained mocks and the Law of Demeter**
+
+
+Here are some common pithy-named anti-patterns in TDD:
+
+**Excessive Setup**
+
+A test that requires a lot of work setting up in order to even begin testing. Sometimes several hundred lines of code is 
+used to setup the environment for one test, with several objects involved, which can make it difficult to really 
+ascertain what is tested due to the "noise" of all of the setup going on.
+
+**The Giant**
+
+A unit test that, although it is validly testing the object under test, can span thousands of lines and contain many 
+many test cases. This can be an indicator that the system under tests is a 
+[God Object](http://en.wikipedia.org/wiki/God_object)
+
+**Generous Leftovers ****[[4**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#joakim)
+
+An instance where one unit test creates data that is persisted somewhere, and another test reuses the data for its own 
+devious purposes. If the "generator" is run afterwards, or not at all, the test using that data will fail.
+
+**The Dodger ****[[1**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#frank)
+
+A unit test which has lots of tests for minor (and presumably easy to test) side effects, but never tests the core 
+desired behavior. Sometimes you may find this in database access related tests, where a method is called, then the test 
+selects from the database and runs assertions against the result.
