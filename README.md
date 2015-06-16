@@ -560,7 +560,7 @@ refactor it into code that is easier to read, extend, and test.
 
 ## Factorial Exercise
 
-Open the class **`com.thoughtworks.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
+Open the class **`com.thoughtworks.tddintro.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
 changes to the class **`Factorial`** so that one more test passes than the last time you made a change. Essentially,
 you're doing the *Make the failing test pass* step of TDD. This should help you get used to the rhythm of TDD before
 you have to write your own tests. Here's the cycle you should go through once for each test.
@@ -579,7 +579,7 @@ you need to.
 
 Now you're going to write your own test.
 
-Look in the class **`com.thoughtworks.accountbalance.AccountTests`**. You'll see three commented out empty unit tests
+Look in the class **`com.thoughtworks.tddintro.accountbalance.AccountTests`**. You'll see three commented out empty unit tests
 (one for each of the test cases listed below).
 
 For each of the test cases:
@@ -663,7 +663,7 @@ make the PrintStream variable available in the calling method so we can use it. 
 `printStream` into the constructor of the class that uses it.
 
 ``` java
-public class com.thoughtworks.library.Main {
+public class com.thoughtworks.tddintro.library.Main {
     public static void main(String[] args) {
         GreetingPrinter greetingPrinter = new GreetingPrinter(System.out);
         greetingPrinter.printGreeting();
@@ -820,7 +820,7 @@ Last development, but it's a smart thing to do if you inherit untested code.
 
 #### Using Verify
 
-Find the class `com.thoughtworks.library.Main` and run it. This shows you the existing behavior of the program; which is
+Find the class `com.thoughtworks.tddintro.library.Main` and run it. This shows you the existing behavior of the program; which is
 to print out the three books that are added in the `Main` class. Note that we are passing the list of books and the
 `PrintStream` into the constructor of `Library`. This lets us use a real `PrintStream` in our main method and a mock
 `PrintStream` in our tests.
@@ -830,7 +830,7 @@ nothing will print to the console except the test results. This is important bec
 of thousands of tests and if many of them printed to the console we wouldn't be able to find the test results in all of
 spam from our program printing so much.
 
-Now go to the class `com.thoughtworks.library.LibraryTest` (it's located in the `test/java` directory). This class has three
+Now go to the class `com.thoughtworks.tddintro.library.LibraryTest` (it's located in the `test/java` directory). This class has three
 unit tests in it. The first one is mostly implemented. You should add a `verify` statement to make sure that the correct
 string is being printed to the mock `PrintStream`.
 
@@ -858,16 +858,15 @@ We break dependencies:
 
 #### Sensing
 Mocks let us sense interactions that are important to the tests we're writing but are not easy to verify without mocks.
-Mockito verify let's us easily sense these interactions. 
+`Mockito.verify` allows us to easily sense these interactions. 
 
 #### Separation
 We often have code that is called in production that we would never want to call in our tests. Some reasons we might not 
 want to call this code is that it:
  * is slow and we always want our tests to run fast
  * interacts with a real resources that we don't want to interact with in tests
- * *when*
- * avoid using real resources
- * helps write maintainable tests
+ * allows us to avoid using real resources
+ * helps us write maintainable tests
 
 ## Further reading:
  * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
@@ -879,20 +878,79 @@ want to call this code is that it:
  * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
 
 
-## Patterns: Add example code
+## TDD Patterns
 
-These are concepts/strategies that tend to lead to test that drive us to write testable and flexible code. You should 
-think of them as recipes. They are guidelines to help you succeed when you first start writing tests. Over time you will learn when and where to improvise on these recipes.
+These concepts/strategies lead us to write tests that lead to testable and flexible code. Think of them as recipes for 
+cooking successful tests and code. They are guidelines to help you succeed when you first start writing tests. Over time
+you will learn when and where to improvise on these recipes.
 
-Single Constructor
+### One Constructor Per Class
+If we have more than one constructor in each class then it's possible that a test could pass if we used one constructor 
+and fail if we used a different one. That would lead us to want to create a duplicate of each test case for each different 
+ constructor. It's simpler to limit ourselves to one constructor.
+ 
+``` java
+public class Product {
+    private int numberOfItems;
+    private double totalPrice;
+    public Product() {
+        numberOfItems = 0;
+        totalPrice = 0.0;
+    }
+    public Product(int numberOfItems, double totalPrice) {
+        this.numberOfItems = numberOfItems;
+        this.totalPrice = totalPrice;
+    }
+    public double pricePerItem(){
+        return totalPrice/numberOfItems;
+    }
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+}
+```
+ 
+``` java
+public class ProductTest {
+    @Test
+    public void pricePerItemShouldBeSameAsTotalPriceWhenThereIsOneItem() {
+        Product product = new Product(1, 14.0);
 
-Mock Everything
+        assertThat(product.pricePerItem(), is(14.0));
+    }
+    @Test
+    @Ignore // This test fails due to price per item being Infinity
+    public void pricePerItemShouldBeSameAsTotalPriceWhenThereIsOneItemWithDefaultConstructor() {
+        Product product = new Product();
+        product.setTotalPrice(14.0);
+        assertThat(product.pricePerItem(), is(14.0));
+    }
+}
+``` 
 
-Dependency Injection (screencast)
+### Avoid Behavior in the Constructor
+Since we are going to be creating a new instance of our class in each test, we will end up executing any behavior that lives 
+in the constructor in every one of our tests. That means that every test for our class could fail if the behavior in the 
+constructor stops working. It's simpler to let this behavior live in other methods. Limit yourself to assignments in your
+constructors.
 
-No Statics
+### Keep Complex Object Creation Behavior in Factories
+Sometimes we need to do something complex in order to create an instance of our object. If we can't do that work in the 
+constructor, we need to put it somewhere. Factories are a design pattern where we use a different class to encapsulate 
+the complexity of creating a new instance of another class.
+ 
+### Use Only Required Arguments Constructors
+It's generally good practice to not have partially initialized objects. That means that we need to initialize all of our
+class' required fields during construction. The simplest way to do this is to pass in values for all of these fields as
+constructor arguments.
 
-## TDD Anti-patterns: Add example code
+### Use Dependency Injection
+
+### Mock Everything Except the Class under Test
+
+### No Static Variables or Methods
+
+## TDD Anti-patterns
 
 **Chained mocks and the Law of Demeter**
 
