@@ -1,9 +1,9 @@
 # Test Driven Development in Java
 
 ## Table of Contents
-* (Introduction)[#introduction]
+* [Introduction](#introduction)
 
-## Introduction <a id="introduction"/>
+## Introduction <a id="introduction"></a>
 
 These lessons will teach you the basics of Test Driven Development (TDD) in Java, using JUnit, Mockito, and IntelliJ.
 
