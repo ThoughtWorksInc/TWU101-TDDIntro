@@ -3,7 +3,7 @@
 ## Table of Contents
 * (Introduction)[#introduction]
 
-## Introduction <a id="introduction"\>
+## Introduction <a id="introduction"/>
 
 These lessons will teach you the basics of Test Driven Development (TDD) in Java, using JUnit, Mockito, and IntelliJ.
 
