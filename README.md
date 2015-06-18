@@ -1,7 +1,7 @@
 # Test Driven Development in Java
 
 ## Table of Contents
-* (Introduction)[## Introduction]
+* (Introduction)[#Introduction]
 
 ## Introduction
 
