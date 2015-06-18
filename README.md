@@ -1,6 +1,6 @@
 # Test Driven Development in Java
 
-# Table of Contents
+## Table of Contents
 * [Introduction](#introduction)
 * [What is TDD?](#what-is-tdd)
 * [Writing a Test](#writing-a-test)
@@ -8,12 +8,12 @@
 * [Mocks & Stubs](#mocks-and-stubs)
 * [Mockito](#mockito)
 * [Why TDD & Dependency Injection](#why-tdd-and-dependency-injection)
-* [Further Reading](#further-reading)
 * [TDD Patterns](#tdd-patterns)
 * [TDD Anti-Patterns](#tdd-anti-patterns)
+* [Further Reading](#further-reading)
 
 <a id="introduction"></a>
-# Introduction 
+## Introduction 
 
 These lessons will teach you the basics of Test Driven Development (TDD) in Java, using JUnit, Mockito, and IntelliJ.
 
@@ -21,7 +21,7 @@ We’re assuming that we don’t need to convince you why you want to do TDD and
 of TDD. Instead we’ll be focusing on the what and how.
 
 <a id="what-is-tdd"></a>
-# What is TDD?
+## What is TDD?
 
 TDD is the practice of writing a small amount of code (a unit test) that describes the new behavior you wish to add to
 your program before you implement the behavior itself.
@@ -30,7 +30,7 @@ your program before you implement the behavior itself.
 
 You can think of unit tests as tiny programs we write to verify that the methods in our classes do what we expect them to do.
 
-## The TDD Cycle
+### The TDD Cycle
 
 The following sequence is based on the book *[Test-Driven Development by Example](http://en.wikipedia.org/wiki/Test-Driven_Development_by_Example)*.
 
@@ -44,7 +44,7 @@ The basics steps for this process look like this:
 
 ![image](https://github.com/BillSchofield/TDDIntro/blob/master/src/common/images/TDDCycle.png?raw=true)
 
-### Add a test
+#### Add a test
 
 In test-driven development, each new feature begins with writing a test. This test must inevitably fail because it is
 written before the feature has been implemented. (If it does not fail, then either the proposed "new" feature already
@@ -56,7 +56,7 @@ modification of an existing test. This is a differentiating feature of test-driv
 *after* the code is written: it makes the developer focus on the requirements *before* writing the code, a subtle
 but important difference.
 
-### Run all tests and see if the new one fails
+#### Run all tests and see if the new one fails
 
 This validates that the [test harness](http://en.wikipedia.org/wiki/Test_harness) is working correctly and that the new
 test does not mistakenly pass without requiring any new code. This step also tests the test itself; it rules out the
@@ -64,7 +64,7 @@ possibility that the new test always passes, and therefore is worthless. The new
 reason. This increases confidence (though does not guarantee) that it is testing the right thing, and passes only in
 intended cases.
 
-### Write some code
+#### Write some code
 
 The next step is to write code that causes the test to pass. The new code written at this stage is not perfect, and may,
 for example, pass the test in an inelegant way. That is acceptable because later steps improve and hone it.
@@ -73,12 +73,12 @@ At this point, the only purpose of the written code is to pass the test; no furt
 functionality should be predicted and 'allowed for' at any stage.  This prevents unnecessary and unspecified code from
 being written, helping avoid [YAGNI](http://en.wikipedia.org/wiki/You_aren't_gonna_need_it) functionality.
 
-### Run tests
+#### Run tests
 
 If all test cases now pass, the programmer can be confident that the code meets all the tested requirements. This is a
 good point from which to begin the final step of the cycle.
 
-### Refactor code
+#### Refactor code
 
 Now the code should be cleaned up. Move code to where it logically belongs. Remove duplication. Make sure variable and
 method names represent their current use. Clarify constructs that might be misinterpreted. Use the [Four Rules of
@@ -98,7 +98,7 @@ pass in the "Write some code" step.
 > * Says everything OnceAndOnlyOnce.
 > * Has no superfluous parts.
 
-### Repeat
+#### Repeat
 
 Starting with another new test, repeat the cycle to push forward the functionality. The size of the steps should always
 be small, with as few as 1 to 10 edits between each test run. If new code does not rapidly satisfy a new test, or other
@@ -109,7 +109,7 @@ When using external libraries do not make increments so small that they merely t
 is some reason to believe that the library is buggy or not sufficiently feature-complete to serve all the needs of the
 main program being written.
 
-## Unit Tests
+### Unit Tests
 
 As we mentioned above, unit tests are small programs that we use to verify the correctness of our "production" code.
 The word *unit* refers to a subdivision of the overall program. While others might consider *unit* to mean a class or
@@ -128,7 +128,7 @@ name the test `shouldAddS` or `shouldAddSToWord`.
 Once you know the behavior you want to verify and the method where you expect add that behavior, you can start writing
 your test. We’ll show you how to do this in JUnit.
 
-## JUnit
+### JUnit
 
 JUnit is a popular Java unit testing framework. We’re going to use JUnit to create our TDD unit tests.
 
@@ -153,35 +153,35 @@ public class PluralizerTests {
 }
 ```
 
-### Test Classes
+#### Test Classes
 
 We call the class that we are testing the *class under test*. In the example above, the class under test is
 **`Pluralizer`**. All of the unit tests for the *class under test* will live inside a test class named:
 **`<class under test>Tests.java`**.
 
-### Anatomy of a Unit Test
+#### Anatomy of a Unit Test
 
 There are three sections to every unit test. One set of names for these sections is: Arrange, Action, Assert.
 Another is: Given, When, Then.
 
-#### Arrange/Given 
+##### Arrange/Given 
 
 This is where we set the stage for our scenario. That means that we create all of the objects we need for the test in
 this section. While arranging happens at the top of our test, we often make changes here after working on the other two
 sections.
 
-#### Action/When
+##### Action/When
 
 The Action/When section is where we call the method that we are testing (the Action). This should usually be a single
 method call.
 
-#### Assert/Then
+##### Assert/Then
 
 We verify that the method under test caused the right thing to happen in Assert/Then section of our tests. If you feel
 like you need more than one assert you should probably split your test.
 
 <a id="writing-a-test"></a>
-# Writing a test
+## Writing a test
 
 If you have a good idea of the behavior you want to test then you should just do this:
 
@@ -554,12 +554,12 @@ public class StringJoiner {
 ```
 
 <a id="try-it-for-yourself"></a>
-# Try It For Yourself
+## Try It For Yourself
 
 As a result of our disciplined practice of TDD, we have evidence that our code is correct and we were able to safely
 refactor it into code that is easier to read, extend, and test. Now **you** can try your hand at TDD!
 
-## Get the code for this tutorial
+### Get the code for this tutorial
 
 1. Clone the git repo
   1. Go to the repository page for this tutorial
@@ -575,7 +575,7 @@ refactor it into code that is easier to read, extend, and test. Now **you** can 
   5. Otherwise, click the **`Use local Gradle installation`** radio button and browse to the gradle directory inside
   this project. Then hit **`Finish`** and you are ready to go.
 
-## Factorial Exercise
+### Factorial Exercise
 
 Open the class **`com.thoughtworks.tddintro.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
 changes to the class **`Factorial`** so that one more test passes than the last time you made a change. Essentially,
@@ -592,7 +592,7 @@ and try again. You should also try again if one of the previously passing tests 
 4. Now that you have one more test passing, you should commit you change so you can revert back to a good state later if
 you need to.
 
-## Write your own tests
+### Write your own tests
 
 Now you're going to write your own test.
 
@@ -615,7 +615,7 @@ For each of the test cases:
 | I have $50 in my account  | I withdraw $100 | I see that my account contains $50  |
 
 <a id="mocks-and-stubs"></a>
-# Mocks & Stubs
+## Mocks & Stubs
 
 ### Test Doubles
 Up to this point, we’ve test driven situations where the class we are testing does not depend on any other class and we
@@ -762,7 +762,7 @@ called _dependency injection_ because we inject a class' dependencies instead of
 This pattern increases the flexibility of our code by allowing us to create different instances of the same class that 
 behave differently because they use different versions of their dependencies.
 
-## Mocks
+### Mocks
 
 > Wikipedia: Mock object
 > In object-oriented programming, mock objects are simulated objects that mimic the behavior of real objects in 
@@ -774,7 +774,7 @@ We're primarily going to use mock objects to:
 * provide return values from dependencies
 
 <a id="mockito"></a>
-# Mockito
+## Mockito
 
 Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful
 methods:
@@ -866,21 +866,21 @@ Work through the remaining tests in `LibraryTest` the same way you did the first
 to print the time.
 
 <a id="why-tdd-and-dependency-injection"></a>
-# Why TDD & Dependency Injection
+## Why TDD & Dependency Injection
 
-## Breaking Dependencies
+### Breaking Dependencies
 TDD helps expose our dependencies and dependency injection is a tool for breaking dependencies.
 
-### Sensing & Separation
+#### Sensing & Separation
 We break dependencies:
  * so we can *sense* when we can't access values our code computes
  * to *separate* when we can't even get a piece of code into a test harness to run.
 
-#### Sensing
+##### Sensing
 Mocks let us sense interactions that are important to the tests we're writing but are not easy to verify without mocks.
 `Mockito.verify` allows us to easily sense these interactions. 
 
-#### Separation
+##### Separation
 We often have code that is called in production that we would never want to call in our tests. Some reasons we might not 
 want to call this code is that it:
  * is slow and we always want our tests to run fast
@@ -888,19 +888,8 @@ want to call this code is that it:
  * allows us to avoid using real resources
  * helps us write maintainable tests
 
-<a id="further-reading"></a>
-# Further reading:
- * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
- * [Test Double](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
- * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
- * [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
- * [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
- * [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
- * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
-
-
 <a id="tdd-patterns"></a>
-# TDD Patterns
+## TDD Patterns
 
 These concepts/strategies lead us to write tests that lead to testable and flexible code. Think of them as recipes for 
 cooking successful tests and code. They are guidelines to help you succeed when you first start writing tests. Over time
@@ -1058,32 +1047,37 @@ constructor arguments.
 ### No Static Variables or Methods
 
 <a id="tdd-anti-patterns"></a>
-# TDD Anti-patterns
+## TDD Anti-patterns
 
-**Chained mocks and the Law of Demeter**
+### Chained mocks and the Law of Demeter
 
-
-Here are some common pithy-named anti-patterns in TDD:
-
-**Excessive Setup**
-
+### Excessive Setup
 A test that requires a lot of work setting up in order to even begin testing. Sometimes several hundred lines of code is 
 used to setup the environment for one test, with several objects involved, which can make it difficult to really 
 ascertain what is tested due to the "noise" of all of the setup going on.
 
-**The Giant**
-
+### The Giant
 A unit test that, although it is validly testing the object under test, can span thousands of lines and contain many 
 many test cases. This can be an indicator that the system under tests is a 
 [God Object](http://en.wikipedia.org/wiki/God_object)
 
-**Generous Leftovers ****[[4**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#joakim)
-
+### Generous Leftovers
 An instance where one unit test creates data that is persisted somewhere, and another test reuses the data for its own 
 devious purposes. If the "generator" is run afterwards, or not at all, the test using that data will fail.
 
-**The Dodger ****[[1**]](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/#frank)
-
+### The Dodger
 A unit test which has lots of tests for minor (and presumably easy to test) side effects, but never tests the core 
 desired behavior. Sometimes you may find this in database access related tests, where a method is called, then the test 
 selects from the database and runs assertions against the result.
+
+<a id="further-reading"></a>
+## Further reading:
+ * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
+ * [Test Double](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
+ * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
+ * [Mock object](http://en.wikipedia.org/wiki/Mock_object) (used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed)
+ * [Test spy](http://en.wikipedia.org/w/index.php?title=Test_spy&action=edit&redlink=1) (used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed)
+ * [Fake object](http://en.wikipedia.org/wiki/Fake_object) (used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access)
+ * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
+ * [TDD Anti-Patterns by James Carr](http://blog.james-carr.org/2006/11/03/tdd-anti-patterns/)
+
