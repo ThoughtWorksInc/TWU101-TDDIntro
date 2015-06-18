@@ -1,16 +1,27 @@
 # Test Driven Development in Java
 
-## Table of Contents
+# Table of Contents
 * [Introduction](#introduction)
+* [What is TDD?](#what-is-tdd)
+* [Writing a Test](#writing-a-test)
+* [Try It For Yourself](#try-it-for-yourself)
+* [Mocks & Stubs](#mocks-and-stubs)
+* [Mockito](#mockito)
+* [Why TDD & Dependency Injection](#why-tdd-and-dependency-injection)
+* [Further Reading](#further-reading)
+* [TDD Patterns](#tdd-patterns)
+* [TDD Anti-Patterns](#tdd-anti-patterns)
 
-## Introduction <a id="introduction"></a>
+<a id="introduction"></a>
+# Introduction 
 
 These lessons will teach you the basics of Test Driven Development (TDD) in Java, using JUnit, Mockito, and IntelliJ.
 
 We’re assuming that we don’t need to convince you why you want to do TDD and we’ll only touch lightly on the principles
 of TDD. Instead we’ll be focusing on the what and how.
 
-## What is TDD?
+<a id="what-is-tdd"></a>
+# What is TDD?
 
 TDD is the practice of writing a small amount of code (a unit test) that describes the new behavior you wish to add to
 your program before you implement the behavior itself.
@@ -169,7 +180,8 @@ method call.
 We verify that the method under test caused the right thing to happen in Assert/Then section of our tests. If you feel
 like you need more than one assert you should probably split your test.
 
-### Writing a test
+<a id="writing-a-test"></a>
+# Writing a test
 
 If you have a good idea of the behavior you want to test then you should just do this:
 
@@ -541,9 +553,11 @@ public class StringJoiner {
 }
 ```
 
+<a id="try-it-for-yourself"></a>
+# Try It For Yourself
 
 As a result of our disciplined practice of TDD, we have evidence that our code is correct and we were able to safely
-refactor it into code that is easier to read, extend, and test.
+refactor it into code that is easier to read, extend, and test. Now **you** can try your hand at TDD!
 
 ## Get the code for this tutorial
 
@@ -600,8 +614,8 @@ For each of the test cases:
 | I have $100 in my account | I withdraw $50  | I see that my account contains $50  |
 | I have $50 in my account  | I withdraw $100 | I see that my account contains $50  |
 
-
-## Mocks & Stubs
+<a id="mocks-and-stubs"></a>
+# Mocks & Stubs
 
 ### Test Doubles
 Up to this point, we’ve test driven situations where the class we are testing does not depend on any other class and we
@@ -759,7 +773,8 @@ We're primarily going to use mock objects to:
 * verify object interactions
 * provide return values from dependencies
 
-## Mockito
+<a id="mockito"></a>
+# Mockito
 
 Mockito is a Java library that lets you mock and stub objects with impunity.  It provides two extraordinarily useful
 methods:
@@ -850,11 +865,13 @@ Work through the remaining tests in `LibraryTest` the same way you did the first
 `listBooks` method and using `when/thenReturn` to make our mock `DateTimeFormatter` return some specific values when it is asked
 to print the time.
 
+<a id="why-tdd-and-dependency-injection"></a>
+# Why TDD & Dependency Injection
+
 ## Breaking Dependencies
 TDD helps expose our dependencies and dependency injection is a tool for breaking dependencies.
 
 ### Sensing & Separation
-
 We break dependencies:
  * so we can *sense* when we can't access values our code computes
  * to *separate* when we can't even get a piece of code into a test harness to run.
@@ -871,7 +888,8 @@ want to call this code is that it:
  * allows us to avoid using real resources
  * helps us write maintainable tests
 
-## Further reading:
+<a id="further-reading"></a>
+# Further reading:
  * [Martin Fowler](http://martinfowler.com/articles/mocksArentStubs.html)’s essay exploring differences between mocks and stubs.
  * [Test Double](http://en.wikipedia.org/wiki/Test_double) provides a concise overview of different types of test doubles:
  * [Test stub](http://en.wikipedia.org/wiki/Test_stubs) (used for providing the tested code with "indirect input")
@@ -881,7 +899,8 @@ want to call this code is that it:
  * [Dummy object](http://en.wikipedia.org/w/index.php?title=Dummy_object&action=edit&redlink=1) (used when a parameter is needed for the tested method but without actually needing to use the parameter)
 
 
-## TDD Patterns
+<a id="tdd-patterns"></a>
+# TDD Patterns
 
 These concepts/strategies lead us to write tests that lead to testable and flexible code. Think of them as recipes for 
 cooking successful tests and code. They are guidelines to help you succeed when you first start writing tests. Over time
@@ -1038,7 +1057,8 @@ constructor arguments.
 
 ### No Static Variables or Methods
 
-## TDD Anti-patterns
+<a id="tdd-anti-patterns"></a>
+# TDD Anti-patterns
 
 **Chained mocks and the Law of Demeter**
 
