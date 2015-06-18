@@ -928,16 +928,101 @@ public class ProductTest {
 }
 ``` 
 
-### Avoid Behavior in the Constructor
+### Avoid Behavior in the Constructor by Keeping Complex Object Creation Behavior in Factories
 Since we are going to be creating a new instance of our class in each test, we will end up executing any behavior that lives 
 in the constructor in every one of our tests. That means that every test for our class could fail if the behavior in the 
 constructor stops working. It's simpler to let this behavior live in other methods. Limit yourself to assignments in your
-constructors.
+constructors. Do something like this:
 
-### Keep Complex Object Creation Behavior in Factories
+``` java
+public class Shape {
+    private String name;
+    private final double area;
+    private final double perimeter;
+
+    public Shape(String name, double area, double perimeter) {
+        this.name = name;
+        this.area = area;
+        this.perimeter = perimeter;
+    }
+}
+```
+
+We can also run into the problem where we want our constructor to create different types of objects that are instances
+of the same class. For instance, we might have constructors in our Shape class that create instances of squares and 
+circles. Both squares and circles only need one value (probably a double) in order to describe them (length for square 
+and radius for circle). How do we distinguish between those constructors since they both want a signature that looks like 
+`public Shape(double size)`? Sometimes people will use a flag to indicate which type of object they want (an enum or 
+boolean). This results in a complex constructor that we will have to write a lot of tests for. In the example below we
+use double to indicate that we want a square and float to indicate a circle. Imagine how easy it would be to call the 
+wrong constructor. Avoid code that looks like this:
+
+``` java
+public class Shape {
+    private String name;
+    private final double area;
+    private final double perimeter;
+
+    // Square Constructor
+    public Shape(double length){
+        name = "Square";
+        area = length * length;
+        perimeter = length * 4;
+    }
+
+    // Circle Constructor
+    public Shape(float radius){
+        name = "Circle";
+        area = PI * radius * radius;
+        perimeter = 2 * PI * radius;
+    }
+}
+```
+
 Sometimes we need to do something complex in order to create an instance of our object. If we can't do that work in the 
 constructor, we need to put it somewhere. Factories are a design pattern where we use a different class to encapsulate 
-the complexity of creating a new instance of another class.
+the complexity of creating a new instance of another class. This is an example of a static factory method:
+
+``` java
+public class Shape {
+    private String name;
+    private final double area;
+    private final double perimeter;
+
+    public Shape(String name, double area, double perimeter) {
+        this.name = name;
+        this.area = area;
+        this.perimeter = perimeter;
+    }
+
+    public static Shape createSquareWithSidesOfLength(int length) {
+        String name = "Square";
+        double area = length * length;
+        double perimeter = length * 4;
+        return new Shape(name, area, perimeter);
+    }
+}
+```
+
+When we use this static factory we do something like:
+``` java
+Shape square = Shape.createSquareWithSidesOfLength(5);
+```
+
+An abstract factory looks like this (note that the abstract factory either implements a factory interface or extends an
+abstract factory class):
+``` java
+public class CircleFactory implements ShapeFactory {
+    @Override
+    public Shape create(int diameter) {
+        double radius = 1.0 * diameter/2.0;
+        return new Shape("Circle", PI * radius * radius, 2 * PI * radius);
+    }
+}
+
+// Usage looks like:
+Shape circle = new CircleFactory().create(5);
+```
  
 ### Use Only Required Arguments Constructors
 It's generally good practice to not have partially initialized objects. That means that we need to initialize all of our
