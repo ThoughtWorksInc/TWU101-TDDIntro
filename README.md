@@ -1,5 +1,8 @@
 # Test Driven Development in Java
 
+## Table of Contents
+* (Introduction)[## Introduction]
+
 ## Introduction
 
 These lessons will teach you the basics of Test Driven Development (TDD) in Java, using JUnit, Mockito, and IntelliJ.
@@ -588,7 +591,7 @@ For each of the test cases:
 2. Fix compile errors.
 3. Watch the test fail.
 4. Write now code that you expect to make the test pass.
-5. Watch the test pass. If any of your tests fail, you should you should repeat step #4.
+5. Watch the test pass. If any of your tests fail, you should repeat step #4.
 6. Commit your changes and go back to Step #1 for the next test case.
 
 | Given                     | When            | Then                                |
