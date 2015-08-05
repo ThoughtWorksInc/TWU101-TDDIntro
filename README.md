@@ -10,6 +10,7 @@
 * [Why TDD & Dependency Injection](#why-tdd-and-dependency-injection)
 * [TDD Patterns](#tdd-patterns)
 * [TDD Anti-Patterns](#tdd-anti-patterns)
+* [Advice](#advice)
 * [Further Reading](#further-reading)
 
 <a id="introduction"></a>
@@ -919,9 +920,7 @@ public class Product {
         this.totalPrice = totalPrice;
     }
 }
-```
- 
-``` java
+
 public class ProductTest {
     @Test
     public void pricePerItemShouldBeSameAsTotalPriceWhenThereIsOneItem() {
@@ -1069,6 +1068,26 @@ devious purposes. If the "generator" is run afterwards, or not at all, the test 
 A unit test which has lots of tests for minor (and presumably easy to test) side effects, but never tests the core 
 desired behavior. Sometimes you may find this in database access related tests, where a method is called, then the test 
 selects from the database and runs assertions against the result.
+
+<a id="advice"></a>
+## Advice
+* Initially, go slow. Do it right.
+* Minimize untested code
+* Don’t unit test main()
+* Minimize the complexity of your main method by only calling one method in main. You could write something like 
+`new Foo().run();` for example
+* Work on one thing at a time. Seriously.
+* Only work on one feature at a time
+* Change one behavior at a time
+* Red/Green/Refactor. Know where you are.
+* Always know where you are in the process. You should be able to say, "We are working on the first acceptance criteria of 
+the 'List Books' story, we have two passing tests, and are about to refactor our tests to use a setup method".
+* Focus on what the code should do, not how you want to implement it. Call a method before you implement it.
+* Code from the outside in (or top to bottom). All of your new code should be executed when you run `main()`.
+* Only add test to methods that already exist. The test will drive you to implement the new behavior that you want 
+the method to have.
+* Move/duplicate tests before you move code to a new class
+* Don’t refactor code without new tests already in place
 
 <a id="further-reading"></a>
 ## Further reading:
