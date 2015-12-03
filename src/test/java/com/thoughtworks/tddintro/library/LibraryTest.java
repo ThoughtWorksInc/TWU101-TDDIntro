@@ -4,6 +4,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,8 @@ public class LibraryTest {
         String title = "Book Title";
         books.add(title);
         PrintStream printStream = mock(PrintStream.class);
-        Library library = new Library(books, printStream, null);
+        DateTimeFormatter dateTimeFormatter = mock(DateTimeFormatter.class);
+        Library library = new Library(books, printStream, dateTimeFormatter);
 
         library.listBooks();
 
@@ -44,8 +47,12 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() {
+    public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() throws IOException {
 
+
+        BufferedReader reader = mock(BufferedReader.class);
+
+        when(reader.readLine()).thenReturn("1", "2");
         // implement me
     }
 
