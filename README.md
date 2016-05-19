@@ -675,7 +675,7 @@ public static void main(String[] args) {
 }
 ```
 
-This still isn't testable, but it should us that we can create our PrintStream in one place and use it in another. We 
+This still isn't testable, but it showed us that we can create our PrintStream in one place and use it in another. We 
 can declare the PrintStream variable in the main method and use it in another method. When we do this we need to 
 make the PrintStream variable available in the calling method so we can use it. A great way to do that is by passing 
 `printStream` into the constructor of the class that uses it.
