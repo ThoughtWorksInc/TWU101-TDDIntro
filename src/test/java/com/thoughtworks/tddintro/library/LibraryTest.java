@@ -48,11 +48,6 @@ public class LibraryTest {
 
     @Test
     public void shouldPrintBothBookTitlesWhenThereAreTwoBooks() throws IOException {
-
-
-        BufferedReader reader = mock(BufferedReader.class);
-
-        when(reader.readLine()).thenReturn("1", "2");
         // implement me
     }
 
