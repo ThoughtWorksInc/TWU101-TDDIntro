@@ -578,7 +578,7 @@ refactor it into code that is easier to read, extend, and test. Now **you** can 
 
 ### Factorial Exercise
 
-Open the class **`com.thoughtworks.tddintro.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
+Open the class **`com.thoughtworks.tddintro.exercises.factorial.FactorialTests`**. You'll find five unit tests there. Your goal is to make
 changes to the class **`Factorial`** so that one more test passes than the last time you made a change. Essentially,
 you're doing the *Make the failing test pass* step of TDD. This should help you get used to the rhythm of TDD before
 you have to write your own tests. Here's the cycle you should go through once for each test.
@@ -597,7 +597,7 @@ you need to.
 
 Now you're going to write your own test.
 
-Look in the class **`com.thoughtworks.tddintro.accountbalance.AccountTests`**. You'll see three commented out empty unit tests
+Look in the class **`com.thoughtworks.tddintro.exercises.accountbalance.AccountTests`**. You'll see three commented out empty unit tests
 (one for each of the test cases listed below).
 
 For each of the test cases:
@@ -681,7 +681,7 @@ make the PrintStream variable available in the calling method so we can use it. 
 `printStream` into the constructor of the class that uses it.
 
 ``` java
-public class com.thoughtworks.tddintro.library.Main {
+public class com.thoughtworks.tddintro.exercises.library.Main {
     public static void main(String[] args) {
         GreetingPrinter greetingPrinter = new GreetingPrinter(System.out);
         greetingPrinter.printGreeting();
@@ -839,7 +839,7 @@ Last development, but it's a smart thing to do if you inherit untested code.
 
 #### Using Verify
 
-Find the class `com.thoughtworks.tddintro.library.Main` and run it. This shows you the existing behavior of the program; which is
+Find the class `com.thoughtworks.tddintro.exercises.library.Main` and run it. This shows you the existing behavior of the program; which is
 to print out the three books that are added in the `Main` class. Note that we are passing the list of books and the
 `PrintStream` into the constructor of `Library`. This lets us use a real `PrintStream` in our main method and a mock
 `PrintStream` in our tests.
@@ -849,7 +849,7 @@ nothing will print to the console except the test results. This is important bec
 of thousands of tests and if many of them printed to the console we wouldn't be able to find the test results in all of
 spam from our program printing so much.
 
-Now go to the class `com.thoughtworks.tddintro.library.LibraryTest` (it's located in the `test/java` directory). This class has three
+Now go to the class `com.thoughtworks.tddintro.exercises.library.LibraryTest` (it's located in the `test/java` directory). This class has three
 unit tests in it. The first one is mostly implemented. You should add a `verify` statement to make sure that the correct
 string is being printed to the mock `PrintStream`.
 
