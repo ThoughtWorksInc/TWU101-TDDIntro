@@ -863,8 +863,8 @@ put the listBooks method back to it's original state.
 #### Using when/thenReturn
 
 Work through the remaining tests in `LibraryTest` the same way you did the first three. This time we're testing the
-`listBooks` method and using `when/thenReturn` to make our mock `DateTimeFormatter` return some specific values when it is asked
-to print the time.
+`listBooks` method and using `when/thenReturn` to make our mock `BufferedReader` return some specific values when it is asked
+to read user inputs.
 
 <a id="why-tdd-and-dependency-injection"></a>
 ## Why TDD & Dependency Injection
